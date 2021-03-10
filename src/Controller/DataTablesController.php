@@ -18,25 +18,17 @@ class DataTablesController extends AbstractController
      */
     public function AficheAdhrent(AdherentsRepository $AdherentsRepository): Response
     { $Adherents = $AdherentsRepository->findAll();
-
+      
         return $this->render('data_tables/adherents.html.twig', [
-          'Adherents' => $Adherents
+          'Adherents' => $Adherents,
+           
+
         ]);
     }
 
 
-     /**
-   * @Route("ShowOneAdherent/{id} ", name="onepersonne")
-   */
-  public function Show(AdherentsRepository $AdherentsRepository,$id): Response
-  {
-    
-    $Adherents = $AdherentsRepository->findby(['id'=>$id]);
 
-    return $this->render('data_tables/showadherent.html.twig', [
-      'Adherents' => $Adherents
-    ]);
-  }
+    
 
 
 /**
@@ -74,8 +66,11 @@ class DataTablesController extends AbstractController
       return $this->redirectToRoute('data_tables');
     }
 
-    return $this->render('data_tables/addAdherent.html.twig');
-
+    return $this->render('data_tables/addAdherent.html.twig',[
+      'form' => $form 
+    
+    ]);
+   
 
 
 
