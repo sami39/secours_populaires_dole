@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+{% form_theme registrationForm 'bootstrap_4_layout.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+<style>
+h1{
+
+    color:#18B4EE;
+}
+    .container{
+         
+        margin-top:30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, .25);
+          
+        text-align:center;
+        font-size:20px;
+        color:#049558 ;
+        width:350px
+    }
+    </style>
+    {% for flashError in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+    {% endfor %}
+<div class="container">
+        <div class="row justify-content-center mt-5">
+            <div class="col-12">
+    <h1>inscription</h1>
+
+    {{ form_start(registrationForm) }}
+        {{ form_row(registrationForm.email) }}
+        {{ form_row(registrationForm.plainPassword, {
+            label: 'Password'
+        }) }}
+        {{ form_row(registrationForm.agreeTerms) }}
+
+       <button type="submit" class="btn btn-success">m'inscris</button>
+    {{ form_end(registrationForm) }}
+    </div>
+    </div>
+    </div>
+    
+{% endblock %}

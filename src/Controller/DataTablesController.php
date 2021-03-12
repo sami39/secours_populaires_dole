@@ -67,7 +67,7 @@ class DataTablesController extends AbstractController
     }
 
     return $this->render('data_tables/addAdherent.html.twig',[
-      'form' => $form 
+      'form' => $form->createView()
     
     ]);
    
@@ -76,4 +76,32 @@ class DataTablesController extends AbstractController
 
 
 }
-}
+ /**
+   * @Route("/editAdherent/{id}", name="editAdherent")
+   */
+
+  public function edit(Request $request, Adherents $projects): Response
+  {
+
+    $entityManager = $this->getDoctrine()->getManager();
+
+
+    $form = $this->createForm(AdherentType::class, $projects);
+    $form->handleRequest($request);
+    if ($form->isSubmitted() && $form->isValid()) {
+
+      $entityManager->persist($projects);
+      $entityManager->flush();
+      return $this->redirectToRoute('data_tables');
+    }
+    return $this->render('data_tables/editAdhrent.html.twig',[
+      'form' => $form->createView()
+      ]);
+  }
+      
+    }
+
+
+
+
+

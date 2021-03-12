@@ -36,6 +36,25 @@ class AdherentsRepository extends ServiceEntityRepository
     }
     */
 
+    public function search(?string $NomPrenom)
+    {
+        $qb = $this->createQueryBuilder('a');
+        $expr = $qb->expr();
+        // $expr = new Expr();
+
+        if ($NomPrenom) {
+            $qb
+            ->where($expr->orX(
+                $expr->like('CONCAT(a.NomPrenom)', ':name'),
+              
+            ))
+            ->setParameter('name', "%$NomPrenom%");
+    }
+
+    return $qb->getQuery()->getResult();
+}
+
+
     /*
     public function findOneBySomeField($value): ?Adherents
     {
