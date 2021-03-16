@@ -87,6 +87,11 @@ class Adherents
      */
     private $Observation;
 
+    public function __toString()
+    {
+        return $this->getNomPrenom();
+    }
+
     public function getId(): ?int
     {
         return $this->id;

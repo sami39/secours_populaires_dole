@@ -5,6 +5,7 @@ namespace App\Controller;
  
 use App\Entity\Adherents;
 use App\Form\AdherentType;
+use App\Form\SearchaderentsType;
 use App\Repository\AdherentsRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,17 +15,37 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class DataTablesController extends AbstractController
 {
     /**
-     * @Route("/data/tables", name="data_tables")
+     * @Route("/data/tables/", name="data_tables" , methods={"GET","POST"})
      */
-    public function AficheAdhrent(AdherentsRepository $AdherentsRepository): Response
-    { $Adherents = $AdherentsRepository->findAll();
+    public function AficheAdhrent(AdherentsRepository $AdherentsRepository,request $request): Response
+    {
+     
+      $Adherents = $AdherentsRepository->findAll();
+      $form = $this->createForm(SearchaderentsType::class);
+
+     
+      $result=[];
       
+      if($form->handleRequest($request)->isSubmitted() && $form->isValid()){
+      
+          $datas = $form->getData();
+           $Adherent = $datas->getNomPrenom(); 
+        $result=$AdherentsRepository->search($Adherent) ;
+        
+            
+        
+         
+      }
         return $this->render('data_tables/adherents.html.twig', [
           'Adherents' => $Adherents,
-           
-
+          'search' =>$form->createView() ,
+          'result' =>$result
+ 
         ]);
+
+         
     }
+  
 
 
 
@@ -53,7 +74,9 @@ class DataTablesController extends AbstractController
    */
 
   public function AjoutAdhrent(Request $request, AdherentsRepository $adherentsRepository)
+  
   {
+    setlocale(LC_TIME, 'fr_FR.UTF8', 'fr.UTF8', 'fr_FR.UTF-8', 'fr.UTF-8'); 
     $projects = new Adherents();
     $form = $this->createForm(AdherentType::class, $projects);
     $form->handleRequest($request);
@@ -100,6 +123,7 @@ class DataTablesController extends AbstractController
   }
       
     }
+  
 
 
 

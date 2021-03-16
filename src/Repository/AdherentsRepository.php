@@ -18,6 +18,23 @@ class AdherentsRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Adherents::class);
     }
+    /**
+    * @return Adherents[] Returns an array of Adherents objects
+    */
+    public function search ($critere)
+    {
+        return $this->createQueryBuilder('a')
+            
+            ->andWhere('a.NomPrenom LIKE :NomPrenom')
+            ->setParameter('NomPrenom', '%'.$critere.'%')
+            ->orWhere('a.Dossier LIKE :Dossier')
+            ->setParameter('Dossier', '%'.$critere.'%')
+            ->orderBy('a.id', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 
     // /**
     //  * @return Adherents[] Returns an array of Adherents objects
@@ -36,24 +53,27 @@ class AdherentsRepository extends ServiceEntityRepository
     }
     */
 
-    public function search(?string $NomPrenom)
-    {
-        $qb = $this->createQueryBuilder('a');
-        $expr = $qb->expr();
-        // $expr = new Expr();
+    // public function search(?string $NomPrenom)
+    // {
+    //     $qb = $this->createQueryBuilder('a');
+    //     $expr = $qb->expr();
+    //     // $expr = new Expr();
 
-        if ($NomPrenom) {
-            $qb
-            ->where($expr->orX(
-                $expr->like('CONCAT(a.NomPrenom)', ':name'),
-              
-            ))
-            ->setParameter('name', "%$NomPrenom%");
-    }
+    //     if ($NomPrenom) {
+    //         $qb
+    //             /* ->where($expr->orX(
+    //             $expr->like($expr->concat($expr->concat('CONCATa.Nom', ' '), 'a.Prenom'), ':name'),
+    //             $expr->like($expr->concat($expr->concat('a.Prenom', ' '), 'a.Nom'), ':name'),
+    //         ))*/
+    //             ->where($expr->orX(
+    //                 $expr->like('CONCAT(a.NomPrenom)', ':NomPrenom')
+                  
+    //             ))
+    //             ->setParameter('name', "%$NomPrenom%");
+    //     }
 
-    return $qb->getQuery()->getResult();
-}
-
+    //     return $qb->getQuery()->getResult();
+    // }
 
     /*
     public function findOneBySomeField($value): ?Adherents

@@ -16,7 +16,7 @@
 {% endblock %}
 
 {% block body %}
-
+ 
 
 <div class="content-wrapper">
 	<!-- Content Header (Page header) -->
@@ -96,8 +96,9 @@
 									Numero dossier <h4 id="Dossier"></h4>
 									colis:<h5 id="colis"></h5>
 									Numero Telephonne: <h5 id="Telephone"></h5>
-
-									Premiere inscription :<h5 id="Inscription"></h5>
+                                    Lessive: <h5 id="Lessive"></h5>
+								    hygiene :<h5 id="hygiene"></h5>
+								    couches : <h5 id ="couche"></h5> 
 									Observation:<h5 id="Observation"></h5>
 									nombre Adulte: <h5 id="Adulte"></h5>
 									nombre Enfant: <h5 id="enfant"></h5>
@@ -111,10 +112,15 @@
 							</div>
 						</div>
 					</div>
+
+					{{form(search)}}
+					
+				 
+				
 				 
 					<div class="card-body p-0">
 						<table class="table table-striped projects">
-							<thead>
+							<thead  class="text-center">
 								<tr>
 									<th style="width: 1%">
 										Colis
@@ -122,21 +128,21 @@
 									<th style="width: 20%">
 										Nom & Prenom
 									</th>
-									<th style="width: 30%">
-										Observation
+									<th style="width: 20%">
+										Date inscription
 									</th>
-									<th>
+									<th style="width: 20%">
 										Frequence
 									</th>
-									<th style="width: 5%" class="text-center">
+									<th style="width: 10%">
 										Telephone
 									</th>
 									<th style="width: 25%"></th>
 								</tr>
 							</thead>
-							{% for Adherent in Adherents %}
-
-							<tbody>
+							{% if result|length > 0 %}
+							{% for Adherent in result %}
+								<tbody  class="text-center">
 
 								<tr>
 									<td>
@@ -146,7 +152,7 @@
 										{{ Adherent.NomPrenom}}
 									</td>
 									<td>
-										{{ Adherent.Observation}}
+										{{Adherent.Inscription|date("d/m/Y") }}
 
 									</td>
 									<td>
@@ -155,6 +161,7 @@
 									<td>
 										{{ Adherent.Telephone}}
 									</td>
+								
 
 
 
@@ -164,7 +171,9 @@
 											data-target="#exampleModal" data-id="2" data-nom="{{ Adherent.NomPrenom}}"
 											data-colis="{{ Adherent.Colis}}" data-numero="{{ Adherent.Telephone}}"
 											data-observation="{{ Adherent.Observation}}"
-											data-Inscription="{{ Adherent.Inscription|date('Y-m-d') }}"
+											data-hygiene= "{{Adherent.hygiene }}" data-lessive="{{ Adherent.Lessive }}"
+										    data-couches = "{{Adherent.Couches }}"
+										
 											data-adulte="{{ Adherent.Adulte}}" data-enfant="{{ Adherent.Enfant}}"
 											data-dossier="{{ Adherent.Dossier }}">
 											<i class="fas fa-folder">
@@ -188,6 +197,65 @@
 									</td>
 								</tr>
 								{% endfor %}
+							{% else %}
+							{% for Adherent in Adherents %}
+
+							<tbody  class="text-center">
+
+								<tr>
+									<td>
+										{{ Adherent.Colis}}
+									</td>
+									<td>
+										{{ Adherent.NomPrenom}}
+									</td>
+									<td>
+										{{Adherent.Inscription|date("d/m/Y") }}
+
+									</td>
+									<td>
+										{{ Adherent.FrequenceMensuelle}}
+									</td>
+									<td>
+										{{ Adherent.Telephone}}
+									</td>
+								
+
+
+
+									<td class="project-actions text-right">
+
+										<a class="btn btn-primary btn-sm" href="#" data-toggle="modal"
+											data-target="#exampleModal" data-id="2" data-nom="{{ Adherent.NomPrenom}}"
+											data-colis="{{ Adherent.Colis}}" data-numero="{{ Adherent.Telephone}}"
+											data-observation="{{ Adherent.Observation}}"
+											data-hygiene= "{{Adherent.hygiene }}" data-lessive="{{ Adherent.Lessive }}"
+										    data-couches = "{{Adherent.Couches }}"
+										
+											data-adulte="{{ Adherent.Adulte}}" data-enfant="{{ Adherent.Enfant}}"
+											data-dossier="{{ Adherent.Dossier }}">
+											<i class="fas fa-folder">
+											</i>
+											Voir
+										</a>
+
+
+										<a class="btn btn-info btn-sm"
+											href="{{path ('editAdherent', {'id' : Adherent.id})}}">
+											<i class="fas fa-pencil-alt"></i>
+											modifier
+										</a>
+										<a class="btn btn-danger btn-sm"
+											onclick="return confirm('êtes-vous sûr de vouloir supprimer  {{ Adherent.NomPrenom}}')"
+											href="{{path ('delete_adherent', {'id' : Adherent.id})}}">
+											<i class="fas fa-trash"></i>
+											supprimer
+										</a>
+
+									</td>
+								</tr>
+								{% endfor %}
+								{% endif %}
 							</tbody>
 						</table>
 					</div>
@@ -226,11 +294,13 @@
 
 		var Telephone = button.data('numero')
 		var Observation = button.data('observation')
-		var inscription = button.data('Inscription')
+		var hygiene = button.data('hygiene')
+		var Lessive = button.data('lessive')
 		var adulte = button.data('adulte')
 		var enfant = button.data('enfant')
 		var dossier = button.data('dossier')
-
+		var couches = button.data('couches')
+                                   
 
 
 		var modal = $(this)
@@ -239,10 +309,12 @@
 		modal.find('#colis').text(colis)
 		modal.find('#Telephone').text(Telephone)
 		modal.find('#Observation').text(Observation)
-		modal.find('#Inscription').text(inscription)
+		modal.find('#hygiene').text(hygiene)
 		modal.find('#Adulte').text(adulte)
 		modal.find('#enfant').text(enfant)
 		modal.find('#Dossier').text(dossier)
+		modal.find('#Lessive').text(Lessive)
+		modal.find('#couche').text(couches)
 
 	})
 </script>
