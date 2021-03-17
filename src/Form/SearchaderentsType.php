@@ -24,13 +24,15 @@ class SearchaderentsType extends AbstractType
         ])
       
         ->add('Rechercher', SubmitType::class, [
+            
             'attr' => [
-                'class' => 'btn primary',
+                'class' => 'btn btn-outline-primary',
+               
             ]
         ])
     ;
 
-        ;
+        
     }
 
     public function configureOptions(OptionsResolver $resolver)

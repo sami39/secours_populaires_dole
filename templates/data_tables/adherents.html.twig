@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-
+{% form_theme search 'bootstrap_4_layout.html.twig' %}
 {% block title %}datatable
 {% endblock %}
 {% block stylesheets %}
@@ -112,12 +112,17 @@
 							</div>
 						</div>
 					</div>
+					<div class="container justify-content-center">
 
 					{{form(search)}}
-					
-				 
 				
+					</div>
+					<div class="container-fluid d-flex justify-content-end ">
+					
+				 	 
+				<a href="{{path ('data_tables') }}" class="btn btn-default btn-lg active" role="button" title="Lien 2">retour</a>
 				 
+				   </div>
 					<div class="card-body p-0">
 						<table class="table table-striped projects">
 							<thead  class="text-center">
