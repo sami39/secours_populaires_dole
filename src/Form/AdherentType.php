@@ -86,10 +86,7 @@ class AdherentType extends AbstractType
                 'attr' => array(
                     'placeholder' => 'numero de telephone')
                 ])
-            ->add('paye')
-            ->add('hygiene')
-            ->add('Lessive')
-            ->add('Couches')
+            
             ->add('Observation', TextareaType::class,[
                  
                 'attr' => array(

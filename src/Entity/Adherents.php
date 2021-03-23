@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\AdherentsRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -65,28 +67,25 @@ class Adherents
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $paye;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $hygiene;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $Lessive;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $Couches;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
     private $Observation;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Appointment::class, mappedBy="adherents")
+     */
+    private $Appointment;
+
+    public function __construct()
+    {
+        $this->Appointment = new ArrayCollection();
+    }
+
+   
+   
+
+    
+    
+
+   
     public function __toString()
     {
         return $this->getNomPrenom();
@@ -205,54 +204,6 @@ class Adherents
         return $this;
     }
 
-    public function getPaye(): ?string
-    {
-        return $this->paye;
-    }
-
-    public function setPaye(string $paye): self
-    {
-        $this->paye = $paye;
-
-        return $this;
-    }
-
-    public function getHygiene(): ?string
-    {
-        return $this->hygiene;
-    }
-
-    public function setHygiene(string $hygiene): self
-    {
-        $this->hygiene = $hygiene;
-
-        return $this;
-    }
-
-    public function getLessive(): ?string
-    {
-        return $this->Lessive;
-    }
-
-    public function setLessive(string $Lessive): self
-    {
-        $this->Lessive = $Lessive;
-
-        return $this;
-    }
-
-    public function getCouches(): ?string
-    {
-        return $this->Couches;
-    }
-
-    public function setCouches(string $Couches): self
-    {
-        $this->Couches = $Couches;
-
-        return $this;
-    }
-
     public function getObservation(): ?string
     {
         return $this->Observation;
@@ -264,4 +215,50 @@ class Adherents
 
         return $this;
     }
+
+    /**
+     * @return Collection|Appointment[]
+     */
+    public function getAppointment(): Collection
+    {
+        return $this->Appointment;
+    }
+
+    public function addAppointment(Appointment $appointment): self
+    {
+        if (!$this->Appointment->contains($appointment)) {
+            $this->Appointment[] = $appointment;
+            $appointment->setAdherents($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAppointment(Appointment $appointment): self
+    {
+        if ($this->Appointment->removeElement($appointment)) {
+            // set the owning side to null (unless already changed)
+            if ($appointment->getAdherents() === $this) {
+                $appointment->setAdherents(null);
+            }
+        }
+
+        return $this;
+    }
+
+     
+     
+
+     
+    
+
+   
+
+   
+
+    
+    
+
+    
+ 
 }

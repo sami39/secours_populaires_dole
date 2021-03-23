@@ -21,12 +21,38 @@ class Appointment
      * @ORM\Column(type="datetime")
      */
     private $date;
+ 
 
     /**
-     * @ORM\OneToOne(targetEntity=Adherents::class, cascade={"persist", "remove"})
+     * @ORM\Column(type="string", length=255)
+     */
+    private $hygiene;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $couche;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $lessive;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $paye;
+
+    /**
+     * @ORM\Column(type="bigint")
+     */
+    private $Dette;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Adherents::class, inversedBy="Appointment")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $category;
+    private $adherents;
 
     public function getId(): ?int
     {
@@ -45,14 +71,76 @@ class Appointment
         return $this;
     }
 
-    public function getCategory(): ?Adherents
+    
+
+    public function getHygiene(): ?string
     {
-        return $this->category;
+        return $this->hygiene;
     }
 
-    public function setCategory(Adherents $category): self
+    public function setHygiene(string $hygiene): self
     {
-        $this->category = $category;
+        $this->hygiene = $hygiene;
+
+        return $this;
+    }
+
+    public function getCouche(): ?string
+    {
+        return $this->couche;
+    }
+
+    public function setCouche(string $couche): self
+    {
+        $this->couche = $couche;
+
+        return $this;
+    }
+
+    public function getLessive(): ?string
+    {
+        return $this->lessive;
+    }
+
+    public function setLessive(string $lessive): self
+    {
+        $this->lessive = $lessive;
+
+        return $this;
+    }
+
+    public function getPaye(): ?bool
+    {
+        return $this->paye;
+    }
+
+    public function setPaye(bool $paye): self
+    {
+        $this->paye = $paye;
+
+        return $this;
+    }
+
+    public function getDette(): ?string
+    {
+        return $this->Dette;
+    }
+
+    public function setDette(string $Dette): self
+    {
+        $this->Dette = $Dette;
+
+        return $this;
+    }
+
+    public function getAdherents(): ?Adherents
+    {
+        return $this->adherents;
+    }
+
+    public function setAdherents(?Adherents $adherents): self
+    {
+        $this->adherents = $adherents;
 
         return $this;
     }
