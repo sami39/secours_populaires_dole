@@ -6,6 +6,7 @@ use App\Repository\AdherentsRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=AdherentsRepository::class)
@@ -16,11 +17,15 @@ class Adherents
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * 
+     * @Groups({"Appointment:list"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * 
+     * @Groups({"Appointment:list"})
      */
     private $NomPrenom;
 
@@ -79,13 +84,13 @@ class Adherents
         $this->Appointment = new ArrayCollection();
     }
 
-   
-   
 
-    
-    
 
-   
+
+
+
+
+
     public function __toString()
     {
         return $this->getNomPrenom();
@@ -245,20 +250,4 @@ class Adherents
 
         return $this;
     }
-
-     
-     
-
-     
-    
-
-   
-
-   
-
-    
-    
-
-    
- 
 }

@@ -27,38 +27,20 @@ document.addEventListener('DOMContentLoaded', function() {
   
             },
       events: "/appointment/showappeintment",
+      eventSourceSuccess: function(content, xhr) {
+        console.log(content);
+        return content.map((appointment) => ({
+          title: appointment.adherents.NomPrenom,
+          start: appointment.date
+        }));
+      },
       selectable:true,
       selectHelper:true,
-      dateClick: function(start,end,allDay) {
-      
-        var title = prompt('Event Title:') ;
-        if(title){
-
-          var start =$.FullCalendar.formatDate(start, 'Y-MM-DD HH:mm:ss');
-          var end =$.FullCalendar.formatDate(end, 'Y-MM-DD HH:mm:ss');
-          $.ajax({
-            url:"/appointment/showappeintment",
-            type:"POST",
-            data:{
-              title: title,
-              start:start,
-              end:end,
-              type:'add'
-
-
-            },
-           success: function(data){
-
-            calendar.FullCalendar('refetchEvents');
-            alert("rendez vous crerer") ;
-           }
-
-          })
-        }
- 
+      dateClick: function(event) {
+        $dialog = $('#add-appointment-dialog');
+        $dialog.find('#appointment_date').val(moment(event.date).format('YYYY-MM-DD\THH:mm:ss'));
+        $dialog.modal();
       }
-
-       
     });
 
     calendar.render();

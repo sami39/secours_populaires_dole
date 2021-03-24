@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\AppointmentRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=AppointmentRepository::class)
@@ -14,22 +15,30 @@ class Appointment
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * 
+     * @Groups({"Appointment:list"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="datetime")
+     * 
+     * @Groups({"Appointment:list"})
      */
     private $date;
  
 
     /**
      * @ORM\Column(type="string", length=255)
+     * 
+     * @Groups({"Appointment:list"})
      */
     private $hygiene;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * 
+     * @Groups({"Appointment:list"})
      */
     private $couche;
 
@@ -40,17 +49,23 @@ class Appointment
 
     /**
      * @ORM\Column(type="boolean")
+     * 
+     * @Groups({"Appointment:list"})
      */
     private $paye;
 
     /**
      * @ORM\Column(type="bigint")
+     * 
+     * @Groups({"Appointment:list"})
      */
     private $Dette;
 
     /**
      * @ORM\ManyToOne(targetEntity=Adherents::class, inversedBy="Appointment")
      * @ORM\JoinColumn(nullable=false)
+     * 
+     * @Groups({"Appointment:list"})
      */
     private $adherents;
 

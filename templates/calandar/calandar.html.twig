@@ -1,66 +1,40 @@
- {% extends "base.html.twig" %}
+{% extends "base.html.twig" %}
 
 
- {% block title %}AdminLTE 3 | Calendar{% endblock %}
+{% block title %}AdminLTE 3 | Calendar
+{% endblock %}
 
- {% block stylesheets %}
+{% block stylesheets %}
 
- <!-- Theme style -->
- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
- <link rel="stylesheet" href="{{ asset ("bundle/plugins/fontawesome-free/css/all.min.css")}}">
- <!-- Ionicons -->
- <link rel="stylesheet" href="{{ asset ("/bundle/dist/css/adminlte.min.css")}}">
- <!-- Google Font: Source Sans Pro -->
- <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
- <link rel="stylesheet" href="{{ asset ("/bundle/dist/css/adminlte.min.css")}}">
- <link rel="stylesheet" href="{{ asset ("/bundle/css/main.min.css")}}">
+	<!-- Theme style -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link
+	rel="stylesheet" href="{{ asset ("bundle/plugins/fontawesome-free/css/all.min.css")}}">
+	<!-- Ionicons -->
+	<link
+	rel="stylesheet" href="{{ asset ("/bundle/dist/css/adminlte.min.css")}}">
+	<!-- Google Font: Source Sans Pro -->
+	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+	<link rel="stylesheet" href="{{ asset ("/bundle/dist/css/adminlte.min.css")}}">
+	<link rel="stylesheet" href="{{ asset ("/bundle/css/main.min.css")}}">
 
- {% endblock %}
+{% endblock %}
 
- {% block body %}
+{% block body %}
 
+	<div class="container">
+		<div class="row">
+			<div class="col-2"></div>
+			<div class="col-10" id='calendar'></div>
+		</div>
+	</div>
 
- <div class="container-fluid">
-     <div class="row">
-         <div class="col-2"></div>
-         <div class="col-10">
+	{% include "calandar/_add_appointment_dialog.html.twig" %}
 
-             <div id='calendar'></div>
-         </div>
-     </div>
-     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-  Launch demo modal
-</button>
+{% endblock %}
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-     {% block javascripts %}
-     <script src="{{ asset ("/bundle/js/main.min.js")}}"></script>
-     <script src="{{ asset ("/bundle/js/script.js")}}"></script>
-
-
-     {% endblock %}
-
-
-     {% endblock %}
+{% block javascripts %}
+	{{ parent() }}
+	<script src="{{ asset ("/bundle/js/main.min.js")}}"></script>
+	<script src="{{ asset ("/bundle/js/script.js")}}"></script>
+{% endblock %}
