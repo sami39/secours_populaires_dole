@@ -14,6 +14,8 @@ document.addEventListener('DOMContentLoaded', function() {
       navLinks: true, // can click day/week names to navigate views
       businessHours: true, // display business hours
       editable: true,
+       
+    
       selectable: true,
       locale:'fr',
       buttonText:{
@@ -31,16 +33,22 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log(content);
         return content.map((appointment) => ({
           title: appointment.adherents.NomPrenom,
-          start: appointment.date
+          start: appointment.date,
+        
+           
         }));
+        
       },
       selectable:true,
       selectHelper:true,
       dateClick: function(event) {
         $dialog = $('#add-appointment-dialog');
         $dialog.find('#appointment_date').val(moment(event.date).format('YYYY-MM-DD\THH:mm:ss'));
+        console.log(event);
         $dialog.modal();
+       
       }
+     
     });
 
     calendar.render();

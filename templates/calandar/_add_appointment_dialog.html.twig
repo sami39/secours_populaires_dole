@@ -1,21 +1,42 @@
+
+
+{% extends "base.html.twig" %}
+
+{% form_theme form  'bootstrap_4_layout.html.twig' %}
+{% block title %}AdminLTE 3 | Calendar
+{% endblock %}
+{% block body %}
+
 <div class="modal fade" id="add-appointment-dialog">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title">Default Modal</h4>
+				<h4 class="modal-title">prise de rendez-vous</h4>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
 			<div class="modal-body">
-				{{form(form)}}
-				</div>
-				<div class="modal-footer justify-content-between">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary">Save changes</button>
-				</div>
+			 
+				{{ form_start(form) }}
+				 
+				{{ form_row(form.Adherents) }}
+				 
+				 
+				{{ form_row(form.date) }}
+				 
+				{{ form_row(form.paye) }}
+				{{ form_row(form.Dette) }}
+				
 			</div>
-			<!-- /.modal-content -->
+			<div class="modal-footer justify-content-between">
+				<button type="button" class="btn btn-default" data-dismiss="modal">annuler</button>
+				<button type="submit" class="btn btn-success">enregister</button>
+			</div>
+			{{ form_end(form) }}
 		</div>
-		<!-- /.modal-dialog -->
+		<!-- /.modal-content -->
 	</div>
+	<!-- /.modal-dialog -->
+</div>
+{% endblock %}

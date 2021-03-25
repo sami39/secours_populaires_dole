@@ -2,13 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\Appointment;
 use App\Repository\AppointmentRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\BrowserKit\Request;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AppointmentController extends AbstractController
 {
@@ -35,4 +36,7 @@ class AppointmentController extends AbstractController
 
         return new Response($serializer->serialize($appointments, 'json', ['groups' => ['Appointment:list']]));
     }
+
+ 
+
 }

@@ -29,25 +29,6 @@ class Appointment
  
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * 
-     * @Groups({"Appointment:list"})
-     */
-    private $hygiene;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     * 
-     * @Groups({"Appointment:list"})
-     */
-    private $couche;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $lessive;
-
-    /**
      * @ORM\Column(type="boolean")
      * 
      * @Groups({"Appointment:list"})
@@ -69,6 +50,8 @@ class Appointment
      */
     private $adherents;
 
+    
+
     public function getId(): ?int
     {
         return $this->id;
@@ -88,41 +71,8 @@ class Appointment
 
     
 
-    public function getHygiene(): ?string
-    {
-        return $this->hygiene;
-    }
-
-    public function setHygiene(string $hygiene): self
-    {
-        $this->hygiene = $hygiene;
-
-        return $this;
-    }
-
-    public function getCouche(): ?string
-    {
-        return $this->couche;
-    }
-
-    public function setCouche(string $couche): self
-    {
-        $this->couche = $couche;
-
-        return $this;
-    }
-
-    public function getLessive(): ?string
-    {
-        return $this->lessive;
-    }
-
-    public function setLessive(string $lessive): self
-    {
-        $this->lessive = $lessive;
-
-        return $this;
-    }
+  
+   
 
     public function getPaye(): ?bool
     {
@@ -136,12 +86,12 @@ class Appointment
         return $this;
     }
 
-    public function getDette(): ?string
+    public function getDette(): ?int
     {
         return $this->Dette;
     }
 
-    public function setDette(string $Dette): self
+    public function setDette(int $Dette): self
     {
         $this->Dette = $Dette;
 
@@ -159,4 +109,6 @@ class Appointment
 
         return $this;
     }
+
+    
 }
