@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
     editable: true,
 
     selectable: true,
-    locale: "fr",
+  
     buttonText: {
       today: "aujourd'hui",
       month: "mois",
@@ -25,13 +25,17 @@ document.addEventListener("DOMContentLoaded", function () {
     events: "/appointment/showappeintment",
     eventSourceSuccess: function (content, xhr) {
       content.forEach(e => console.log(e));
+      console.log(content);
       return content.map((appointment) => (
         
-        
+    
         {
+          adherentid:appointment.adherents.id,
+        
         title: appointment.adherents.NomPrenom,
         start: appointment.date,
-        id: appointment.id
+        id: appointment.id,
+        
 
       }
       
@@ -46,6 +50,7 @@ document.addEventListener("DOMContentLoaded", function () {
       $dialog
         .find("#appointment_date")
         .val(moment(event.date).format("YYYY-MM-DDTHH:mm:ss"));
+        $dialog.find("#userid").val(null)
        
       $dialog.modal();
     },
@@ -53,12 +58,15 @@ document.addEventListener("DOMContentLoaded", function () {
     eventClick: function (calEvent, jsEvent, view) {
     
      
-
-      $("#appointment_date").val(
-        (calEvent.event.title)
-      );
-
-      $("#edit-appointment-dialog").modal();
+      $dialog = $("#add-appointment-dialog");
+      
+      $dialog
+        .find("#appointment_date")
+        .val(moment(calEvent.event.start).format("YYYY-MM-DDTHH:mm:ss"));
+        $dialog.find("#userid").val(calEvent.event.id)
+        $dialog.find("#appointment_Adherents").val(calEvent.event._def.extendedProps.adherentid)
+        console.log(calEvent);
+      $dialog.modal();
        
     },
   });

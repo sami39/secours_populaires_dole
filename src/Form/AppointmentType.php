@@ -58,7 +58,7 @@ class AppointmentType extends AbstractType
             ])
             ->add('date', TypeDateTimeType::class, [
                 'widget' => 'single_text',
-                'attr' => ['readonly' => true],
+               // 'attr' => ['readonly' => true],
             ])
             
             

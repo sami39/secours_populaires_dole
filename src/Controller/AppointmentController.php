@@ -33,8 +33,9 @@ class AppointmentController extends AbstractController
     {
 
         $appointments = $appointmentRepository->findAll();
-
+     
         return new Response($serializer->serialize($appointments, 'json', ['groups' => ['Appointment:list']]));
+
     }
 
  
