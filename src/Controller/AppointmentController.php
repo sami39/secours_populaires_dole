@@ -3,8 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Appointment;
+use App\Form\AppointmentType;
 use App\Repository\AppointmentRepository;
-use Symfony\Component\BrowserKit\Request;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -33,11 +34,42 @@ class AppointmentController extends AbstractController
     {
 
         $appointments = $appointmentRepository->findAll();
-     
-        return new Response($serializer->serialize($appointments, 'json', ['groups' => ['Appointment:list']]));
 
+        return new Response($serializer->serialize($appointments, 'json', ['groups' => ['Appointment:list']]));
     }
 
- 
+    /**
+     * @Route("/appointment/create", name="create_appointment", methods={"GET","POST"})
+     * @Route("/appointment/{id}/edit", name="edit_appointment", methods={"GET","POST"})
+     */
+    public function save(Request $request, Appointment $appointment = null)
+    {
+        $form = $this->createForm(AppointmentType::class, $appointment);
 
+        if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($form->getData());
+            $entityManager->flush();
+            return $this->redirectToRoute('calandar');
+        }
+
+        return $this->render('appointment/_appointment_form.html.twig', [
+            'form' => $form->createView(),
+            'appointment' => $appointment,
+        ]);
+    }
+
+
+    
+    /**
+     * @Route("appointment/{id}/delete", name="delete_appointment")
+     */
+    public function delete(Request $request, Appointment $appointment): Response
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($appointment);
+        $entityManager->flush();
+        return $this->redirectToRoute('calandar');
+    }
 }
+

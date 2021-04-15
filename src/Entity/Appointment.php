@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\AppointmentRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=AppointmentRepository::class)
@@ -26,7 +27,7 @@ class Appointment
      * @Groups({"Appointment:list"})
      */
     private $date;
- 
+
 
     /**
      * @ORM\Column(type="boolean")
@@ -50,7 +51,7 @@ class Appointment
      */
     private $adherents;
 
-    
+
 
     public function getId(): ?int
     {
@@ -69,10 +70,10 @@ class Appointment
         return $this;
     }
 
-    
 
-  
-   
+
+
+
 
     public function getPaye(): ?bool
     {
@@ -109,6 +110,4 @@ class Appointment
 
         return $this;
     }
-
-    
 }

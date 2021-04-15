@@ -73,7 +73,7 @@ class AppointmentType extends AbstractType
                  ),
                 
             ])
-            ->add('Dette',IntegerType::class, [
+            ->add('Dette', IntegerType::class, [
                 'attr' => array(
                     'placeholder' => 'dette')
                 
