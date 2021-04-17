@@ -34,8 +34,11 @@ class AppointmentController extends AbstractController
     {
 
         $appointments = $appointmentRepository->findAll();
+      
 
-        return new Response($serializer->serialize($appointments, 'json', ['groups' => ['Appointment:list']]));
+      $result = new Response($serializer->serialize($appointments, 'json', ['groups' => ['Appointment:list']]));
+      
+      return $result ;
     }
 
     /**
@@ -71,5 +74,25 @@ class AppointmentController extends AbstractController
         $entityManager->flush();
         return $this->redirectToRoute('calandar');
     }
+
+
+       /**
+     * @Route("/appointment/showfiche", name="showfiche")
+     */
+
+
+    public function showafiche(AppointmentRepository $appointmentRepository): Response
+    {
+
+        $Fiche = $appointmentRepository->findAll();
+        return $this->render('appointment/fichejournaliere.html.twig', [
+             
+            'Fiche' => $Fiche,
+        ]);
+      
+
+     
+    }
+    
 }
 

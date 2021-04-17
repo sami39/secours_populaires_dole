@@ -48,7 +48,7 @@ class AppointmentType extends AbstractType
                    
                },
                'attr' => array(
-                'placeholder' => ''
+                'class' => 'select2'
                 
             )
                

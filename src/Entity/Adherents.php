@@ -31,16 +31,23 @@ class Adherents
 
     /**
      * @ORM\Column(type="bigint")
+     * 
+     * @Groups({"Appointment:list"})
      */
+     
     private $Dossier;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * 
+     * @Groups({"Appointment:list"})
      */
     private $FrequenceMensuelle;
 
     /**
      * @ORM\Column(type="bigint")
+     * 
+     * @Groups({"Appointment:list"})
      */
     private $NbPassage;
 
@@ -61,11 +68,15 @@ class Adherents
 
     /**
      * @ORM\Column(type="bigint")
+     * 
+     * @Groups({"Appointment:list"})
      */
     private $Colis;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * 
+     * @Groups({"Appointment:list"})
      */
     private $Telephone;
 
