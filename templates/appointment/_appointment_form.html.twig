@@ -2,7 +2,7 @@
 
 {{ form_start(form, {action: appointment != null ? path('edit_appointment', {id: appointment.id}) :  path('create_appointment'), attr: {id: 'appointment-form'}}) }}
 
-{{ form_row(form.Adherents, {attr: {class: 'select2'}}) }}
+{{ form_row(form.Adherents, {attr: {class:'select2'}}) }}
 {{ form_row(form.date) }}
 {{ form_row(form.paye) }}
 {{ form_row(form.Dette)  }}

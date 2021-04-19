@@ -25,7 +25,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateTimeType as TypeDateTimeType;
 use Symfony\Component\Validator\Constraints\Choice;
 
 class AppointmentType extends AbstractType
- 
+
 {
     public function __construct(AdherentsRepository $AdherentsRepository)
     {
@@ -37,48 +37,48 @@ class AppointmentType extends AbstractType
             ->add('Adherents', EntityType::class, [
                 'class' => Adherents::class,
                 'label' => 'NomPrenom',
-                
+
                 'multiple' => false,
                 'required' => false,
                 'empty_data' => null,
-               
-               
+
+
                 'query_builder' => function (AdherentsRepository  $er) {
                     return $er->createQueryBuilder('a');
-                   
-               },
-               'attr' => array(
-                'class' => 'select2'
-                
-            )
-               
-              
-                 
-               
+                },
+                'attr' => array(
+                    'class' => 'select2'
+
+                )
+
+
+
+
             ])
             ->add('date', TypeDateTimeType::class, [
                 'widget' => 'single_text',
-               // 'attr' => ['readonly' => true],
+                // 'attr' => ['readonly' => true],
+                'view_timezone' => 'Europe/Paris'
             ])
-            
-            
-            ->add('paye',CheckboxType::class, [
+
+
+            ->add('paye', CheckboxType::class, [
                 'label'    => 'Show this entry publicly?',
                 'required' => false,
             ])
-            ->add('paye', ChoiceType::class,[
+            ->add('paye', ChoiceType::class, [
                 'choices' => array(
                     'Oui' => '1',
                     'Non' => '0'
-                 ),
-                
+                ),
+
             ])
             ->add('Dette', IntegerType::class, [
                 'attr' => array(
-                    'placeholder' => 'dette')
-                
-            ]);
+                    'placeholder' => 'dette'
+                )
 
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

@@ -20,7 +20,7 @@
 
 {% block body %}
 
- 
+
 	<!-- Content Header (Page header) -->
 	<section class="content-header">
 		<div class="container-fluid">
@@ -31,18 +31,18 @@
 				<div class="col-sm-6">
 					<ol class="breadcrumb float-sm-right">
 						<li class="breadcrumb-item">
-							    <input type="button" value="Imprimer cette page" onClick="window.print()">
+							<input type="button" value="Imprimer cette page" onclick="window.print()">
 						</li>
+
+
 						<li class="breadcrumb-item active">Fiche journalière</li>
-                     
+
 					</ol>
 				</div>
 			</div>
 		</div>
 		<!-- /.container-fluid -->
 	</section>
-
-
 	<div
 		class="hold-transition sidebar-mini">
 		<!-- Site wrapper -->
@@ -62,7 +62,7 @@
 
 			</div>
 		</div>
-		 
+
 		<div class="container justify-content-center">
 
 			<div class="card-body ">
@@ -106,7 +106,7 @@
 									</td>
 
 									<td>
-										{{Adherent.date|date("Y-m-d H:i:s") }}
+										{{Adherent.date|date("Y-m-d H:i:s", "Europe/Paris") }}
 
 									</td>
 									<td>
@@ -120,7 +120,7 @@
 									<td class="project-actions text-right">
 
 
-										<a class="btn btn-danger btn-sm" onclick="return confirm('êtes-vous sûr de vouloir supprimer  ')" href="#">
+										<a class="btn btn-danger btn-sm" onclick="return confirm('êtes-vous sûr de vouloir supprimer {{ Adherent.Adherents.NomPrenom}} ')" href={{ path ('delete_appointment',{'id' : Adherent.id} )}}>
 											<i class="fas fa-trash"></i>
 											supprimer
 										</a>
@@ -133,7 +133,7 @@
 				</table>
 			</div>
 		</div>
-       
+
 		<!-- /.card-body -->
 	</body>
 </div>

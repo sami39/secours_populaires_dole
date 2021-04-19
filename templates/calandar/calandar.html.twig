@@ -1,43 +1,45 @@
 {% extends "base.html.twig" %}
 
- 
+
 {% block title %}AdminLTE 3 | Calendar
 {% endblock %}
 
 {% block stylesheets %}
 
-<!-- Theme style -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<link rel="stylesheet" href="{{ asset ("bundle/plugins/fontawesome-free/css/all.min.css")}}">
-<!-- Ionicons -->
-<link rel="stylesheet" href="{{ asset ("/bundle/dist/css/adminlte.min.css")}}">
-<!-- Google Font: Source Sans Pro -->
-<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-<link rel="stylesheet" href="{{ asset ("/bundle/dist/css/adminlte.min.css")}}">
-<link rel="stylesheet" href="{{ asset ("/bundle/css/main.min.css")}}">
+	{{parent()}}
 
+	<!-- Theme style -->
+	<link rel="stylesheet" href="{{ asset ("/bundle/css/main.min.css")}}">
+
+	<style>
+		form .select2-container {
+			width: 100%;
+		}
+		
+		form .select2-container .select2-selection {
+			min-height: 38px;
+		}
+	</style>
 {% endblock %}
 
 {% block body %}
 
-<div class="container-fluid">
-	<div class="row">
-		<div class="col-2"></div>
-		<div class="col-10">
-			<div id='calendar'>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-2"></div>
+			<div class="col-10">
+				<div id='calendar'></div>
 			</div>
 		</div>
 	</div>
-</div>
 
-{% include "calandar/_add_appointment_dialog.html.twig" %}
+	{% include "calandar/_add_appointment_dialog.html.twig" %}
 
 {% endblock %}
 
 {% block javascripts %}
-{{ parent() }}
-<script src="{{ asset ("/bundle/js/main.min.js")}}"></script>
-<script src="{{ asset ("/bundle/js/script.js")}}"></script>
+	{{ parent() }}
+	<script src="{{ asset ("/bundle/js/main.min.js")}}"></script>
+	<script src="{{ asset ("/bundle/js/script.js")}}"></script>
 
 {% endblock %}

@@ -25,21 +25,15 @@ document.addEventListener("DOMContentLoaded", function () {
       list: "liste",
       weekday: "short",
     },
- 
+
     events: "/appointment/showappeintment",
     eventSourceSuccess: function (content, xhr) {
       content.forEach((e) => console.log(e));
       console.log(content);
       return content.map((appointment) => ({
-        adherentid: appointment.adherents.id,
-
+        id: appointment.id,
         title: appointment.adherents.NomPrenom,
         start: appointment.date,
-        description: 'Lecture',
-        extendedProps: {
-          department: 'BioChemistry'
-        },
-        
       }));
     },
     selectable: true,
@@ -48,24 +42,27 @@ document.addEventListener("DOMContentLoaded", function () {
       $dialog = $("#add-appointment-dialog");
       $dialog.find("#delete-appointment-link").prop("href", "#");
       $dialog.find("#appointment-form-container").empty();
-       
+
       $dialog
         .find("#appointment-form-container")
         .load("appointment/create", () => {
           $dialog
             .find("#appointment_date")
             .val(moment(event.date).format("YYYY-MM-DDTHH:mm:ss"));
-            
+          $dialog.find(".select2").select2({ width: null });
+
           $dialog.modal();
         });
     },
 
     eventClick: function (calEvent, jsEvent, view) {
+      console.log(calEvent);
       $dialog = $("#add-appointment-dialog");
       $dialog
         .find("#delete-appointment-link")
         .prop("href", `appointment/${calEvent.event.id}/delete`);
       $dialog.find("#appointment-form-container").empty();
+
       $dialog
         .find("#appointment-form-container")
         .load(`appointment/${calEvent.event.id}/edit`, () => {

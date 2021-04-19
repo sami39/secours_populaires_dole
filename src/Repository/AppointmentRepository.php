@@ -3,8 +3,10 @@
 namespace App\Repository;
 
 use App\Entity\Appointment;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use DateTimeInterface;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @method Appointment|null find($id, $lockMode = null, $lockVersion = null)
@@ -47,4 +49,20 @@ class AppointmentRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    /**
+     * @return Appointment[] Returns an array of Appointment objects
+     */
+
+    public function findByfichejournaliere(\DateTimeInterface $date)
+    {
+        $datestart = new \DateTime($date->format('Y-m-d') . '00:00:00', new \DateTimeZone('Europe/Paris'));
+        $dateend = new \DateTime($date->format('Y-m-d') . '23:59:59',  new \DateTimeZone('Europe/Paris'));
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.date BETWEEN :datestart AND :dateend')
+            ->setParameter('datestart', $datestart)
+            ->setParameter('dateend', $dateend)
+            ->getQuery()
+            ->getResult();
+    }
 }

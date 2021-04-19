@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Appointment;
 use App\Form\AppointmentType;
 use App\Repository\AppointmentRepository;
+use DateTime;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -34,11 +35,11 @@ class AppointmentController extends AbstractController
     {
 
         $appointments = $appointmentRepository->findAll();
-      
 
-      $result = new Response($serializer->serialize($appointments, 'json', ['groups' => ['Appointment:list']]));
-      
-      return $result ;
+
+        $result = new Response($serializer->serialize($appointments, 'json', ['groups' => ['Appointment:list']]));
+
+        return $result;
     }
 
     /**
@@ -63,7 +64,7 @@ class AppointmentController extends AbstractController
     }
 
 
-    
+
     /**
      * @Route("appointment/{id}/delete", name="delete_appointment")
      */
@@ -76,7 +77,7 @@ class AppointmentController extends AbstractController
     }
 
 
-       /**
+    /**
      * @Route("/appointment/showfiche", name="showfiche")
      */
 
@@ -84,15 +85,29 @@ class AppointmentController extends AbstractController
     public function showafiche(AppointmentRepository $appointmentRepository): Response
     {
 
-        $Fiche = $appointmentRepository->findAll();
+        $now = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
+        $Fiche = $appointmentRepository->findByfichejournaliere($now);
+
+
+
         return $this->render('appointment/fichejournaliere.html.twig', [
-             
             'Fiche' => $Fiche,
         ]);
-      
-
-     
     }
-    
-}
+    /**
+     * @Route("delete_appointment/{id}", name="delete_appointment_2")
+     */
+    public function delete_appointment(Request $request, Appointment $appointment): Response
+    {
 
+        $entityManager = $this->getDoctrine()->getManager();
+
+
+
+
+
+        $entityManager->remove($appointment);
+        $entityManager->flush();
+        return $this->redirectToRoute('showfiche');
+    }
+}
