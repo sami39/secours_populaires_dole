@@ -3,8 +3,10 @@
 namespace App\Form;
 
 use App\Entity\Adherents;
+use App\Entity\Appointment;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -86,6 +88,11 @@ class AdherentType extends AbstractType
                 'attr' => array(
                     'placeholder' => 'numero de telephone')
                 ])
+            ->add('date', EntityType::class,[
+                'class' => Appointment::class,
+                 
+                'view_timezone' => 'Europe/Paris',
+                    ])
             
             ->add('Observation', TextareaType::class,[
                  

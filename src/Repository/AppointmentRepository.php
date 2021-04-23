@@ -65,4 +65,17 @@ class AppointmentRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+
+     
+    public function findOneByid($value): ?Appointment
+    {
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.exampleField = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+    
 }

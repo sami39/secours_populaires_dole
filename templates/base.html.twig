@@ -152,7 +152,7 @@
 									<i class="nav-icon far fa-calendar-alt"></i>
 									<p>
 										Prise de rendez-vous
-										<span class="badge badge-info right">2</span>
+										
 									</p>
 								</a>
 							</li>
@@ -160,6 +160,7 @@
 								<a href="{{ path ('showfiche')}} " class="nav-link">
 									<i class="nav-icon fas fa-file"></i>
 									<p>Fiche journalière</p>
+									<span class="badge badge-info right">2</span>
 								</a>
 
 							</li>
@@ -186,6 +187,7 @@
 			<script>
 				$(".select2").select2();
 			</script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js" integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ==" crossorigin="anonymous"></script>
 		{% endblock %}
 	</body>
 </html>

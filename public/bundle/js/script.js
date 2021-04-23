@@ -52,6 +52,30 @@ document.addEventListener("DOMContentLoaded", function () {
           $dialog.find(".select2").select2({ width: null });
 
           $dialog.modal();
+          const result = document.getElementById(
+            "select2-appointment_Adherents-container"
+          );
+          console.log(result);
+          result.addEventListener("change", (e) => {
+            console.log(e.target.value);
+          });
+          $(".select2").on("select2:select", function (e) {
+            // Do something
+            axios
+              .get(`/appointment/howcolisfrequence/${e.target.value}`)
+              .then((result) => {
+                var frequence = result.data.FrequenceMensuelle;
+                var colis = result.data.Colis;
+                console.log(frequence);
+                console.log(colis);
+                console.log(result.data);
+                document.getElementById('frequence').value=frequence;
+                document.getElementById('colis').value=colis;
+                //$dialog.find("#appointment-form-container").write("toto");
+              });
+            // console.log(e.target.value)
+            // console.log(result.data.data)
+          });
         });
     },
 
@@ -67,9 +91,13 @@ document.addEventListener("DOMContentLoaded", function () {
         .find("#appointment-form-container")
         .load(`appointment/${calEvent.event.id}/edit`, () => {
           $dialog.modal();
+          
+          
+          
         });
     },
   });
 
   calendar.render();
 });
+console.log("result");

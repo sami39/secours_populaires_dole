@@ -2,10 +2,11 @@
 
 namespace App\Controller;
 
+use DateTime;
 use App\Entity\Appointment;
 use App\Form\AppointmentType;
+use App\Repository\AdherentsRepository;
 use App\Repository\AppointmentRepository;
-use DateTime;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -109,5 +110,24 @@ class AppointmentController extends AbstractController
         $entityManager->remove($appointment);
         $entityManager->flush();
         return $this->redirectToRoute('showfiche');
+    }
+
+
+    /**
+     * @Route("/appointment/howcolisfrequence/{id}", name="showafrequence")
+     */
+
+
+    public function showcolisfrequence(AdherentsRepository $adherentsRepository, SerializerInterface $serializer,$id): Response
+    {
+
+        $adherents = $adherentsRepository->find($id);
+  
+
+
+        $result = new Response($serializer->serialize($adherents, 'json', ['groups' => ['Appointment:list']]));
+
+     return $result;
+         
     }
 }

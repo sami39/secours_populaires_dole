@@ -21,6 +21,7 @@ class DataTablesController extends AbstractController
     {
      
       $Adherents = $AdherentsRepository->findAll();
+     
       $form = $this->createForm(SearchaderentsType::class);
 
      
